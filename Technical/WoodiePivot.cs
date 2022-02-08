@@ -11,7 +11,7 @@ namespace TechAnalysis.Technical
     {
         public WoodiePivot(string instrument, DateTime date) : base(instrument, date) { }
 
-        public override string Name => MethodBase.GetCurrentMethod().DeclaringType.Name;
+        public override string Name => "WoodiePivot";
 
         public override void Calculate(OHLC ohlc)
         {

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\DataController.cs" />
-    <Compile Remove="Controllers\InstrumentController.cs" />
     <Compile Remove="Service\IPriceService.cs" />
     <Compile Remove="Service\MockPriceService.cs" />
     <Compile Remove="Service\PriceService.cs" />

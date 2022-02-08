@@ -11,33 +11,27 @@ namespace TechAnalysis.Data
         public IList<OHLC> GetPreviousOHLC()
         {
             var lastMarketDate = LastMarketDay();
-            var prevousOHLC = (IList<OHLC>)_context.DailyPrice.Include(d => d.Instrument)
-                .Where(d => d.Date == lastMarketDate)
-                .Select(n => new OHLC
-                {
-                    Symbol = n.Instrument.Symbol,
-                    Open = n.Open,
-                    High = n.High,
-                    Low = n.Low,
-                    Close = n.Close,
-                    StartDateTime = lastMarketDate,
-                    EndDateTime = lastMarketDate
-                }).ToList();
+            var ohlcList = new List<OHLC>();
 
-            if(prevousOHLC.Count() == 0)
+            if(_context != null && _context.DailyPrice != null && _context.Instrument != null)
             {
-                RefreshDailyPrice();
+                ohlcList = _context.DailyPrice.Include(d => d.Instrument)
+                    .Where(d => d.Date == lastMarketDate)
+                    .Select(n => new OHLC
+                    {                        
+                        Symbol = n != null && n.Instrument != null && n.Instrument.Symbol != null ? 
+                            n.Instrument.Symbol : String.Empty,
+                        Open = n != null ? n.Open : 0,
+                        High = n != null ? n.High : 0,
+                        Low = n != null ? n.Low : 0,
+                        Close = n != null ? n.Close : 0,
+                        StartDateTime = lastMarketDate,
+                        EndDateTime = lastMarketDate
+                    }).ToList();
             }
-            return prevousOHLC;
+            return ohlcList;
         }
 
-        private void RefreshDailyPrice()
-        {
-            var oandaDataService = new OandaDataService();
-            _context.Instrument.Where(i => i.Active).ToList().ForEach(instrument => {
-                var historicalDataResponsex = oandaDataService.GetHistorialData(instrument.Symbol);
-            });
-        }
         private DateTime LastMarketDay()
         {
             var marketDate = DateTime.Now.AddDays(-1);

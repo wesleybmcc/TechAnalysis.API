@@ -11,7 +11,7 @@ namespace TechAnalysis.Technical
     {
         public CamarillaPivot(string instrument, DateTime date) : base(instrument, date) { }
 
-        public override string Name => MethodBase.GetCurrentMethod().DeclaringType.Name;
+        public override string Name => "CamarillaPivot";
 
         public override void Calculate(OHLC ohlc)
         {

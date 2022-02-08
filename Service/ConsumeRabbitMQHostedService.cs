@@ -21,19 +21,19 @@ namespace TechAnalysis.API.Service
         {
             this._logger = loggerFactory.CreateLogger<ConsumeRabbitMQHostedService>();
             this._hubContext = hubContext;
-            InitRabbitMQ();
-        }
 
-        private void InitRabbitMQ()
-        {
             var factory = new ConnectionFactory { HostName = "localhost" };
-
             // create connection
             _connection = factory.CreateConnection();
 
             // create channel
             _channel = _connection.CreateModel();
 
+            InitRabbitMQ();
+        }
+
+        private void InitRabbitMQ()
+        {
             _channel.ExchangeDeclare("demo.exchange", ExchangeType.Topic);
             _channel.QueueDeclare("demo.queue.log", false, false, false, null);
             _channel.QueueBind("hello", "demo.exchange", "demo.queue.*", null);
@@ -73,27 +73,27 @@ namespace TechAnalysis.API.Service
             _hubContext.Clients.All.SendMessage("PriceUpdate", content);
         }
 
-        private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
+        private void RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
         {
             _logger.LogInformation($"connection shut down {e.ReplyText}");
         }
 
-        private void OnConsumerConsumerCancelled(object sender, ConsumerEventArgs e)
+        private void OnConsumerConsumerCancelled(object? sender, ConsumerEventArgs e)
         {
             _logger.LogInformation($"consumer cancelled {e.ConsumerTags}");
         }
 
-        private void OnConsumerUnregistered(object sender, ConsumerEventArgs e)
+        private void OnConsumerUnregistered(object? sender, ConsumerEventArgs e)
         {
             _logger.LogInformation($"consumer unregistered {e.ConsumerTags}");
         }
 
-        private void OnConsumerRegistered(object sender, ConsumerEventArgs e)
+        private void OnConsumerRegistered(object? sender, ConsumerEventArgs e)
         {
             _logger.LogInformation($"consumer registered {e.ConsumerTags}");
         }
 
-        private void OnConsumerShutdown(object sender, ShutdownEventArgs e)
+        private void OnConsumerShutdown(object? sender, ShutdownEventArgs e)
         {
             _logger.LogInformation($"consumer shutdown {e.ReplyText}");
         }
