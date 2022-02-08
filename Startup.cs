@@ -4,7 +4,6 @@ using Microsoft.OpenApi.Models;
 using TechAnalysis.API.Service;
 using TechAnalysis.Data;
 using TechAnalysis.Hub;
-using TechAnalysis.Service;
 
 namespace TechAnalysis.API
 {

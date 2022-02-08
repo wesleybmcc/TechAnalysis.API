@@ -2,7 +2,6 @@
 using TechAnalysis.Data;
 using TechAnalysis.Hub;
 using TechAnalysis.Model;
-using TechAnalysis.Service;
 
 namespace TechAnalysis.API.Service
 {
