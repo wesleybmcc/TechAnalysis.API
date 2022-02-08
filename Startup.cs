@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using TechAnalysis.API.Service;
 using TechAnalysis.Data;
 using TechAnalysis.Hub;
+using TechAnalysis.Service;
 
 namespace TechAnalysis.API
 {
@@ -33,6 +36,13 @@ namespace TechAnalysis.API
             }));
 
             services.AddSignalR();
+            services.AddHostedService<ConsumeRabbitMQHostedService>();
+            services.AddSingleton<TOSPriceService>();
+            //services.AddHostedService<TOSPriceService>();
+            //services.AddSingleton(typeof(IPriceService), typeof(TOSPriceService));
+
+            //var serviceProvider = services.BuildServiceProvider();
+            //var singletonService = serviceProvider.GetService<TOSPriceService>();
 
             services.AddDbContext<TechAlertDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("TechAlertDbContext")));

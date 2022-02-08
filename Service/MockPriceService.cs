@@ -33,7 +33,7 @@ namespace TechAnalysis.Service
                 mockedData.Add(ohlc.Symbol, ohlc);
             });
 
-            var timer = new System.Timers.Timer(1500);
+            var timer = new System.Timers.Timer(2500);
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
@@ -45,8 +45,8 @@ namespace TechAnalysis.Service
                 var askClose = mockedData[key].Close;
 
                 var factorRandomDirectionUp = System.DateTime.Now.Millisecond % 2 == 0 ?
-                    key.Contains("JPY") ? -0.02 : .0002 :
-                    key.Contains("JPY") ? 0.04 : -.0004;
+                    key.Contains("JPY") ? -0.01 : .0001 :
+                    key.Contains("JPY") ? 0.01 : -.0001;
 
                 askClose = askClose += factorRandomDirectionUp;
                 var bidAskResponse = new BidAskResponse
