@@ -9,13 +9,11 @@ namespace TechAnalysis.API.Service
     public class TOSPriceService : BackgroundService
     {
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
-        private readonly ILogger _logger;
         private IConnection _connection;
         private IModel _channel;
 
-        public TOSPriceService(ILoggerFactory loggerFactory, IHubContext<BroadcastHub, IHubClient> hubContext)
+        public TOSPriceService(IHubContext<BroadcastHub, IHubClient> hubContext)
         {
-            this._logger = loggerFactory.CreateLogger<ConsumeRabbitMQHostedService>();
             this._hubContext = hubContext;
 
             var factory = new ConnectionFactory { HostName = "localhost" };
@@ -65,33 +63,32 @@ namespace TechAnalysis.API.Service
         private void HandleMessage(string content)
         {
             // we just print this message 
-            _logger.LogInformation($"consumer received {content}");
             _hubContext.Clients.All.SendMessage("PriceUpdate", content);
         }
 
         private void RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
         {
-            _logger.LogInformation($"connection shut down {e.ReplyText}");
+            //_logger.LogInformation($"connection shut down {e.ReplyText}");
         }
 
         private void OnConsumerConsumerCancelled(object? sender, ConsumerEventArgs e)
         {
-            _logger.LogInformation($"consumer cancelled {e.ConsumerTags}");
+           // _logger.LogInformation($"consumer cancelled {e.ConsumerTags}");
         }
 
         private void OnConsumerUnregistered(object? sender, ConsumerEventArgs e)
         {
-            _logger.LogInformation($"consumer unregistered {e.ConsumerTags}");
+            //_logger.LogInformation($"consumer unregistered {e.ConsumerTags}");
         }
 
         private void OnConsumerRegistered(object? sender, ConsumerEventArgs e)
         {
-            _logger.LogInformation($"consumer registered {e.ConsumerTags}");
+           // _logger.LogInformation($"consumer registered {e.ConsumerTags}");
         }
 
         private void OnConsumerShutdown(object? sender, ShutdownEventArgs e)
         {
-            _logger.LogInformation($"consumer shutdown {e.ReplyText}");
+            //_logger.LogInformation($"consumer shutdown {e.ReplyText}");
         }
 
         public override void Dispose()
