@@ -7,23 +7,24 @@ namespace TechAnalysis.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InstrumentTypeController : CustomBaseController
+    public class InstrumentTypeController : ControllerBase
     {
-        public InstrumentTypeController(TechAlertDbContext context) : base(context)
-        {
-        }
+        //public InstrumentTypeController(TechAlertDbContext context) : base(context)
+        //{
+        //}
 
         [HttpGet]
         public IEnumerable<InstrumentType> Get()
         {
-            var list = new List<InstrumentType>();
+            return new DataService().GetInstrumentTypes();
+            //var list = new List<InstrumentType>();
 
-            if(!NullContext() && _context.InstrumentType != null)
-            {
-                list.AddRange(_context.InstrumentType);
-            }
+            //if(!NullContext() && _context.InstrumentType != null)
+            //{
+            //    list.AddRange(_context.InstrumentType);
+            //}
 
-            return list;
+            //return list;
         }
     }
 }

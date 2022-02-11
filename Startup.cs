@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using TechAnalysis.API.Service;
-using TechAnalysis.Data;
+//using TechAnalysis.Data;
 using TechAnalysis.Hub;
 
 namespace TechAnalysis.API
@@ -35,16 +35,11 @@ namespace TechAnalysis.API
             }));
 
             services.AddSignalR();
-            services.AddHostedService<ConsumeRabbitMQHostedService>();
-            services.AddSingleton<TOSPriceService>();
-            //services.AddHostedService<TOSPriceService>();
-            //services.AddSingleton(typeof(IPriceService), typeof(TOSPriceService));
+            services.AddHostedService<TOSPriceService>();
+            services.AddHostedService<OandaHistoricalDataService>();
 
-            //var serviceProvider = services.BuildServiceProvider();
-            //var singletonService = serviceProvider.GetService<TOSPriceService>();
-
-            services.AddDbContext<TechAlertDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("TechAlertDbContext")));
+            //services.AddDbContext<TechAlertDbContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("TechAlertDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

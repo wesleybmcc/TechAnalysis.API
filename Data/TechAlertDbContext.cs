@@ -9,6 +9,7 @@ namespace TechAnalysis.Data
         public DbSet<TechnicalType>? TechnicalType { get; set; }
         public DbSet<TechnicalFeature>? TechnicalFeature { get; set; }
         public DbSet<DailyPrice>? DailyPrice { get; set; }
+        public DbSet<Market>? Market { get; set; }
 
         public TechAlertDbContext(DbContextOptions<TechAlertDbContext> options)
             : base(options)
@@ -23,6 +24,7 @@ namespace TechAnalysis.Data
         public string? Description { get; set; }
         public int MarketId { get; set; }
         public bool Active { get; set; }
+        public virtual Market? Market { get; set; }
     }
 
     public class InstrumentType
@@ -54,5 +56,12 @@ namespace TechAnalysis.Data
         public double Close { get; set; }
         public System.DateTime Date { get; set; }
         public virtual Instrument? Instrument { get; set; }
+    }
+
+    public class Market
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? Sector { get; set; }
     }
 }

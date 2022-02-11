@@ -8,21 +8,28 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\DataController.cs" />
+    <Compile Remove="Data\DailyPriceService.cs" />
+    <Compile Remove="Data\DataService.cs" />
+    <Compile Remove="Data\InstrumentDataService.cs" />
+    <Compile Remove="Data\TechAlertDbContext.cs" />
     <Compile Remove="Service\IPriceService.cs" />
     <Compile Remove="Service\MockPriceService.cs" />
     <Compile Remove="Service\PriceService.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OandaClient\OandaClient.csproj" />
+    <ProjectReference Include="..\TechAnalysis.Data\TechAnalysis.Data.csproj" />
     <ProjectReference Include="..\TechAnalysis.Model\TechAnalysis.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
