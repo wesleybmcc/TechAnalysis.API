@@ -10,11 +10,6 @@ namespace TechAnalysis.Controllers
     [Route("[controller]")]
     public class PriceController : ControllerBase
     {
-
-        //public PriceController(TechAlertDbContext context) : base(context)
-        //{
-        //}
-
         [HttpGet]
         [Route("previousClose")]
         public OHLC GetPreviousClose([FromQuery] string symbol)
@@ -31,23 +26,6 @@ namespace TechAnalysis.Controllers
                 ohlc.Low = dailyPrice.Low;
                 ohlc.Close = dailyPrice.Close;
             }
-
-            //if(!NullContext() && _context.Instrument != null)
-            //{
-            //    var instrument = _context.Instrument.FirstOrDefault(i => i.Symbol == symbol);
-            //    if (instrument != null)
-            //    {
-            //        if(_context.DailyPrice != null)
-            //        {
-            //            var dailyPrice = _context.DailyPrice.Where(d => d.InstrumentId == instrument.Id)
-            //                .OrderByDescending(d => d.Date).Last();
-            //            ohlc.Open = dailyPrice.Open;
-            //            ohlc.High = dailyPrice.High;
-            //            ohlc.Low = dailyPrice.Low;
-            //            ohlc.Close = dailyPrice.Close;
-            //        }
-            //    }
-            //}
 
             return ohlc;
         }

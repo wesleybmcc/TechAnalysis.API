@@ -8,10 +8,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\DataController.cs" />
-    <Compile Remove="Data\DailyPriceService.cs" />
-    <Compile Remove="Data\DataService.cs" />
-    <Compile Remove="Data\InstrumentDataService.cs" />
-    <Compile Remove="Data\TechAlertDbContext.cs" />
     <Compile Remove="Service\IPriceService.cs" />
     <Compile Remove="Service\MockPriceService.cs" />
     <Compile Remove="Service\PriceService.cs" />
@@ -26,10 +22,6 @@
     <ProjectReference Include="..\OandaClient\OandaClient.csproj" />
     <ProjectReference Include="..\TechAnalysis.Data\TechAnalysis.Data.csproj" />
     <ProjectReference Include="..\TechAnalysis.Model\TechAnalysis.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
